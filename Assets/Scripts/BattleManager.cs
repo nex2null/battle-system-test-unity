@@ -14,8 +14,20 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public void Initialize(EnemyEnum enemy)
     {
-        var text = GameObject.Find("EnemyNameText").GetComponent<Text>();
-        text.text = enemy.ToString();
+        // Spawn a prefab for the enemy
+        var prefabPath = "Prefabs/Battle/EnemyListRow";
+        var enemyListRowGameObject = Resources.Load(prefabPath) as GameObject;
+
+        // Grab the parent panel for our enemy list
+        var enemyListPanel = GameObject.Find("EnemyListPanel");
+
+        // Spawn the enemy row
+        var enemyListRow = Instantiate(enemyListRowGameObject, transform.position, transform.rotation);
+        enemyListRow.transform.SetParent(enemyListPanel.transform);
+        enemyListRow.transform.localScale = new Vector3(1f, 1f, 1f);
+
+        // Set the text
+        enemyListRow.transform.Find("NameText").GetComponent<Text>().text = enemy.ToString();
 
         isInitialized = true;
     }
