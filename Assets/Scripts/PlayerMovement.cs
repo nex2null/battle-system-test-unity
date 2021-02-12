@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// Handle game updates
     /// </summary>
-    private void Update()
+    private void FixedUpdate()
     {
         HandleMovement();
     }
@@ -38,6 +38,6 @@ public class PlayerMovement : MonoBehaviour
 
         // Move the character
         if (change != Vector3.zero)
-            myRigidBody.MovePosition(transform.position + change * MoveSpeed * Time.deltaTime);
+            myRigidBody.MovePosition(transform.position + (change * MoveSpeed * Time.fixedDeltaTime));
     }
 }
